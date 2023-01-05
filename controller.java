@@ -10,13 +10,21 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
 
+/*
+To start controller #1; press Start + A
+to start controller #2; press Start + B
+*/
+
+
 public class controller extends LinearOpMode {
-    private DcMotor motorTest;
+    private DcMotor leftDrive = null;
+    private DcMotor rightDrive = null;
 
     private float currentPower = 0;
     @Override
     public void runOpMode() {
-        motorTest = hardwareMap.get(DcMotor.class, "motorTest");
+        leftDrive = hardwareMap.get(DcMotor.class, "motorZero");
+        rightDrive = hardwareMap.get(DcMotor.class, "motorOne");
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         // Wait for the game to start (driver presses PLAY)
@@ -28,9 +36,10 @@ public class controller extends LinearOpMode {
         while (opModeIsActive()) {
 
 
-            currentPower = -gamepad1.left_stick_y;
+            currentPower = -gamepad1.left_stick_y * 1f;
 //            double turn  =  gamepad1.right_stick_x;
-            motorTest.setPower(currentPower);
+            leftDrive.setPower(currentPower);
+            rightDrive.setPower(-currentPower);
             telemetry.addData("Status", "Running");
             telemetry.addData("Power", currentPower);
             telemetry.update();
