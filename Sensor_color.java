@@ -1,5 +1,5 @@
+package org.firstinspires.ftc.teamcode;
 
-package org.firstinspires.ftc.robotcontroller.external.samples;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -39,7 +39,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
  * Remove or comment out the @Disabled line to add this Op Mode to the Driver Station OpMode list
  */
 @TeleOp(name = "Sensor: Color", group = "Sensor")
-@Disabled
 public class Sensor_color extends LinearOpMode {
 
     /** The colorSensor field will contain a reference to our color sensor hardware object */

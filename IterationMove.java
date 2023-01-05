@@ -24,7 +24,7 @@ public class IterationMove extends LinearOpMode {
     public void runOpMode () {
 
         // Initialize the drive system variables.
-        leftDrive = hardwareMap.get(DcMotor.class, "motorTest");
+        leftDrive = hardwareMap.get(DcMotor.class, "motorZero");
         // rightDrive = hardwareMap.get(DcMotor.class, "motorTest2");
 
         // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
