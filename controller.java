@@ -17,14 +17,18 @@ to start controller #2; press Start + B
 
 
 public class controller extends LinearOpMode {
-    private DcMotor leftDrive = null;
-    private DcMotor rightDrive = null;
+    private DcMotor[] rightDrive = {null, null};
+    private DcMotor[] leftDrive = {null, null};
 
     private float currentPower = 0;
     @Override
     public void runOpMode() {
-        leftDrive = hardwareMap.get(DcMotor.class, "motorZero");
-        rightDrive = hardwareMap.get(DcMotor.class, "motorOne");
+
+        rightDrive[0] = hardwareMap.get(DcMotor.class, "motorZero");
+        rightDrive[1] = hardwareMap.get(DcMotor.class, "motorZero");
+        leftDrive[0] = hardwareMap.get(DcMotor.class, "motorOne");
+        leftDrive[1] = hardwareMap.get(DcMotor.class, "motorOne");
+
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         // Wait for the game to start (driver presses PLAY)
@@ -35,19 +39,28 @@ public class controller extends LinearOpMode {
 
         while (opModeIsActive()) {
 
+            if (Math.abs(gamepad1.left_stick_y ) < Math.abs(gamepad1.left_stick_x))
+            {
+                currentPower = -gamepad1.left_stick_x;
+                for (int i = 0; i < 2; i++)
+                {
+                    rightDrive[i].setPower(currentPower);
+                    leftDrive[i].setPower(currentPower);
+                }
+            }
+            else
+            {
+                currentPower = -gamepad1.left_stick_y;
+                for (int i = 0; i < 2; i++)
+                {
+                    leftDrive[i].setPower(currentPower);
+                    rightDrive[i].setPower(-currentPower);
+                }
+            }
 
-            currentPower = -gamepad1.left_stick_y * 1f;
-//            double turn  =  gamepad1.right_stick_x;
-            leftDrive.setPower(currentPower);
-            rightDrive.setPower(-currentPower);
             telemetry.addData("Status", "Running");
             telemetry.addData("Power", currentPower);
             telemetry.update();
-
-
-
-
-
 
         }
     }
